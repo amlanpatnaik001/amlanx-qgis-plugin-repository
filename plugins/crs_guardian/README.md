@@ -2,7 +2,6 @@
 
 **Version:** 2.4.0  
 **Category:** Vector  
-**Original Plugin Author:** Lokesh Sahu  
 **AMLAN-X Branded Release:** Amlan Patnaik
 
 Professional CRS auditing, validation and safe reprojection for QGIS.
