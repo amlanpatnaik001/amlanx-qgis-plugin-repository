@@ -19,7 +19,7 @@ except ImportError as exc:
     raise SystemExit("Missing dependency: run python -m pip install packaging") from exc
 
 REQUIRED = ("name", "version", "description", "qgisminimumversion")
-VERSION_FILE = re.compile(r"^[A-Za-z0-9_]+\.(\d+(?:\.\d+){1,3}(?:[a-zA-Z0-9.+-]*)?)\.zip$")
+VERSION_FILE = re.compile(r"^[A-Za-z0-9_]+\\.(\\d+(?:\\.\\d+){1,3}(?:[a-zA-Z0-9.+-]*)?)\\.zip$")
 
 def clean(value: str | None) -> str:
     return (value or "").strip()
@@ -105,7 +105,7 @@ def build(root: Path, base_url: str):
             "deprecated": clean(meta.get("deprecated", "False")).lower() == "true",
             "filename": zip_path.name,
             "download_url": f"{base_url}/plugins/{plugin_id}/{zip_path.name}",
-            "homepage": clean(meta.get("homepage")) or base_url,
+            "homepage": clean(meta.get("homepage")),
             "tracker": clean(meta.get("tracker")), "repository": clean(meta.get("repository")),
         }
         if plugin_id not in latest or Version(record["version"]) > Version(latest[plugin_id]["version"]):
@@ -123,7 +123,8 @@ def build(root: Path, base_url: str):
         add_text(node, "qgis_minimum_version", p["qgis_minimum_version"])
         if p["qgis_maximum_version"]:
             add_text(node, "qgis_maximum_version", p["qgis_maximum_version"])
-        add_text(node, "homepage", p["homepage"])
+        if p["homepage"]:
+            add_text(node, "homepage", p["homepage"])
         add_text(node, "file_name", p["filename"])
         add_text(node, "author_name", p["author"])
         add_text(node, "download_url", p["download_url"])
