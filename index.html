@@ -1,158 +1,1333 @@
 <!doctype html>
 <html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#080d19">
-<meta name="description" content="Discover, install and update AMLAN-X QGIS plugins. A public plugin repository maintained by Amlan Patnaik.">
-<title>AMLAN-X | QGIS Plugin Repository</title>
-<style>
-:root{color-scheme:dark;--bg:#080d19;--panel:#101a2b;--line:#263a56;--muted:#91a4bf;--text:#eef5ff;--blue:#65b5ff;--cyan:#55e4e0;--green:#55e0ad;--gold:#f5c66b;--shadow:0 22px 70px #0007}
-*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:24px}
-body{margin:0;min-height:100vh;overflow-x:hidden;background:radial-gradient(ellipse at 75% -10%,#173e67 0,transparent 42%),radial-gradient(ellipse at 0 45%,#102a43 0,transparent 30%),var(--bg);color:var(--text);font:15px/1.6 Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif}
-body:before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.18;background-image:linear-gradient(#6aaeff0b 1px,transparent 1px),linear-gradient(90deg,#6aaeff0b 1px,transparent 1px);background-size:46px 46px;mask-image:linear-gradient(to bottom,#000,transparent 85%)}
-a{color:inherit}button,input,select{font:inherit}button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid var(--cyan);outline-offset:3px}
-.wrap{width:min(1160px,calc(100% - 40px));margin:auto}
-header{height:78px;display:flex;align-items:center;justify-content:space-between;gap:20px;border-bottom:1px solid #9fcaff18}
-.brand{display:flex;align-items:center;gap:12px;font-weight:900;letter-spacing:.13em;font-size:14px;text-decoration:none}
-.brand-mark{width:38px;height:38px;display:grid;place-items:center;border:1px solid #65b5ff66;border-radius:12px;background:linear-gradient(145deg,#183b5f,#0b1728);box-shadow:0 0 26px #319bff25;color:var(--cyan);font-size:17px}
-.brand small{display:block;color:var(--blue);font-size:10px;letter-spacing:.2em;font-weight:700;margin-top:-3px}
-.status{display:inline-flex;align-items:center;gap:8px;border:1px solid #3b927a66;border-radius:999px;padding:6px 11px;color:var(--green);font-size:11px;letter-spacing:.12em;font-weight:800;background:#153c332b}
-.pulse{width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 0 0 #55e0ad88;animation:pulse 2s infinite}
-@keyframes pulse{70%{box-shadow:0 0 0 8px #55e0ad00}100%{box-shadow:0 0 0 0 #55e0ad00}}
-.hero{position:relative;padding:86px 0 48px;min-height:420px;display:flex;align-items:center}
-.hero-copy{max-width:760px;position:relative;z-index:1}.eyebrow{display:inline-flex;align-items:center;gap:9px;color:var(--cyan);font-size:11px;font-weight:800;letter-spacing:.2em;text-transform:uppercase}
-.eyebrow:before{content:"";width:26px;height:1px;background:var(--cyan);box-shadow:0 0 12px var(--cyan)}
-h1{font-size:clamp(44px,7vw,82px);line-height:.99;letter-spacing:-.065em;margin:22px 0 20px;font-weight:850}
-.gradient{background:linear-gradient(100deg,#78c8ff 5%,#60e3dc 52%,#86a9ff 95%);-webkit-background-clip:text;background-clip:text;color:transparent}
-.hero p{max-width:620px;color:#a9bad1;font-size:17px;margin:0}.hero-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;padding:11px 16px;border-radius:11px;border:1px solid transparent;text-decoration:none;font-weight:800;font-size:13px;transition:transform .25s,border-color .25s,background .25s,box-shadow .25s;cursor:pointer}
-.btn:hover{transform:translateY(-3px)}.btn-primary{color:#061421;background:linear-gradient(110deg,#72c5ff,#65e3d7);box-shadow:0 8px 28px #4cb8df30}
-.btn-secondary{color:#c7dcf8;background:#12243a;border-color:#345071}
-.hero-orbit{position:absolute;right:3%;top:50%;transform:translateY(-50%);width:min(330px,31vw);aspect-ratio:1;border-radius:50%;border:1px solid #6bbaff2c;display:grid;place-items:center;animation:float 7s ease-in-out infinite}
-.hero-orbit:before,.hero-orbit:after{content:"";position:absolute;border:1px solid #6bbaff25;border-radius:50%;inset:12%;animation:spin 24s linear infinite}
-.hero-orbit:after{inset:25%;border-style:dashed;animation-direction:reverse;animation-duration:35s}
-.orbit-core{width:42%;aspect-ratio:1;border-radius:30%;display:grid;place-items:center;font-size:clamp(34px,5vw,58px);color:var(--cyan);background:linear-gradient(145deg,#173e60,#0b1829);border:1px solid #65b5ff66;box-shadow:0 0 65px #3aa9f855,inset 0 0 30px #3aa9f81c;transform:rotate(-8deg)}
-@keyframes spin{to{transform:rotate(360deg)}}@keyframes float{50%{translate:0 -12px}}
-.section-head{display:flex;align-items:end;justify-content:space-between;gap:18px;margin:24px 0 18px}.section-head h2{font-size:25px;letter-spacing:-.04em;margin:0}
-.section-head p{margin:5px 0 0;color:var(--muted);font-size:13px}
-.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:13px;margin:12px 0 30px}
-.stat{position:relative;overflow:hidden;padding:17px 19px;border:1px solid var(--line);border-radius:15px;background:linear-gradient(145deg,#14243a,#0e1929);box-shadow:0 12px 35px #0002}
-.stat:after{content:"";position:absolute;width:90px;height:90px;right:-35px;top:-45px;border-radius:50%;background:#5abaff12;filter:blur(2px)}
-.stat strong{display:block;font-size:28px;line-height:1.2;letter-spacing:-.04em}.stat span{color:var(--muted);font-size:12px}
-.toolbar{display:grid;grid-template-columns:minmax(220px,1fr) 190px 180px;gap:10px;margin:20px 0 16px}
-.field{position:relative}.field input,.field select{width:100%;height:48px;background:#101d30;border:1px solid var(--line);color:var(--text);padding:0 14px;border-radius:11px}
-.field input{padding-left:42px}.field input::placeholder{color:#7186a3}.field select{cursor:pointer}.search-icon{position:absolute;left:15px;top:10px;color:#83a5cb;font-size:21px}
-.catalogue-meta{display:flex;justify-content:space-between;align-items:center;gap:12px;color:var(--muted);font-size:12px;margin:0 2px 14px}
-.catalogue-meta strong{color:#d9e9ff}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:15px}
-.card{position:relative;isolation:isolate;min-height:250px;display:flex;flex-direction:column;padding:20px;border-radius:16px;border:1px solid #2b4261;background:linear-gradient(145deg,#15263d 0%,#101b2d 72%);box-shadow:0 12px 35px #0002;overflow:hidden;transition:transform .3s,border-color .3s,box-shadow .3s}
-.card:before{content:"";position:absolute;inset:0;z-index:-1;opacity:0;background:radial-gradient(circle at 90% 0,#4bb9f72b,transparent 45%);transition:opacity .3s}
-.card:hover{transform:translateY(-6px);border-color:#5b9ed1;box-shadow:0 20px 45px #0005,0 0 28px #4ba8ed13}.card:hover:before{opacity:1}
-.card-top{display:flex;justify-content:space-between;align-items:start;gap:10px}
-.plugin-icon{width:43px;height:43px;flex:0 0 43px;display:grid;place-items:center;border-radius:12px;color:var(--cyan);background:#1b3c55;border:1px solid #3b7895;font-size:19px}
-.category{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:#9fc9ec;border:1px solid #456485;border-radius:999px;padding:4px 8px;white-space:nowrap}
-.card h3{font-size:19px;letter-spacing:-.025em;margin:15px 0 5px}.meta{font-size:11px;color:#91a8c5}
-.description{color:#bdcbe0;font-size:13px;line-height:1.65;margin:13px 0 16px;flex:1}
-.tags{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:17px}.tag{font-size:10px;color:#a9bfd9;background:#1a2b41;border:1px solid #2d4562;border-radius:7px;padding:4px 7px}
-.tag.experimental{color:var(--gold);border-color:#92713d66;background:#4a351c45}
-.card-actions{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:auto}
-.download{display:inline-flex;align-items:center;gap:8px;padding:9px 12px;border-radius:9px;text-decoration:none;color:#061522;background:linear-gradient(100deg,#75c6ff,#65e2d8);font-size:12px;font-weight:850;transition:filter .2s,transform .2s}
-.download:hover{filter:brightness(1.1);transform:translateY(-2px)}.details{color:#9bc9f5;text-decoration:none;font-size:12px}.details:hover{text-decoration:underline}
-.empty{grid-column:1/-1;text-align:center;padding:54px 20px;border:1px dashed #36516e;border-radius:16px;background:#101d2b80;color:var(--muted)}
-.empty strong{display:block;color:var(--text);font-size:17px;margin-bottom:5px}
-.notice{display:flex;gap:12px;align-items:flex-start;margin:28px 0 0;padding:15px 17px;border:1px solid #80672e66;background:#382d193d;border-radius:12px;color:#e9d49f;font-size:12px}
-.notice b{color:#ffe3a3}.repo-strip{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;margin:34px 0;padding:19px 21px;border:1px solid #315477;border-radius:15px;background:linear-gradient(110deg,#132943,#101d2d)}
-.repo-strip strong{display:block;font-size:14px}.repo-strip code{display:block;color:#8fcaff;font-size:11px;overflow-wrap:anywhere;margin-top:4px}
-.copy-btn{border:1px solid #456b8c;background:#1b3650;color:#d7eaff;border-radius:9px;padding:9px 12px;font-size:11px;font-weight:800;cursor:pointer;white-space:nowrap}
-.copy-btn:hover{background:#244968}footer{border-top:1px solid #9fcaff1c;padding:25px 0 35px;color:var(--muted);font-size:12px}
-.footer-row{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}footer a{color:#9bc9f5;text-decoration:none}footer a:hover{text-decoration:underline}
-.reveal{opacity:0;transform:translateY(18px);transition:opacity .65s ease,transform .65s ease}.reveal.visible{opacity:1;transform:translateY(0)}
-.toast{position:fixed;bottom:22px;left:50%;transform:translate(-50%,20px);opacity:0;pointer-events:none;padding:10px 15px;border-radius:10px;background:#173b35;border:1px solid #4aa88d;color:#b9ffe5;font-size:12px;box-shadow:var(--shadow);transition:.25s;z-index:10}
-.toast.show{opacity:1;transform:translate(-50%,0)}
-@media(max-width:760px){.hero{padding:66px 0 40px;min-height:0}.hero-orbit{opacity:.22;right:-50px;width:260px}.hero-copy{max-width:650px}.toolbar{grid-template-columns:1fr 1fr}.field.search{grid-column:1/-1}.stats{gap:9px}.stat{padding:13px}.stat strong{font-size:23px}}
-@media(max-width:480px){.wrap{width:min(100% - 28px,1160px)}header{height:68px}.status{font-size:9px;padding:5px 8px}.brand{font-size:12px}.brand-mark{width:34px;height:34px}.hero{padding-top:55px}h1{font-size:48px}.hero p{font-size:15px}.stats{grid-template-columns:1fr 1fr}.stat:last-child{grid-column:1/-1}.toolbar{grid-template-columns:1fr}.field.search{grid-column:auto}.section-head{align-items:start;flex-direction:column}.repo-strip{align-items:flex-start}}
-@media(prefers-reduced-motion:reduce){*,*:before,*:after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}.reveal{opacity:1;transform:none}}
-</style>
-</head>
-<body>
-<div class="wrap">
-<header>
-<a class="brand" href="./" aria-label="AMLAN-X home"><span class="brand-mark" aria-hidden="true">AX</span><span>AMLAN-X<small>GIS TOOLS / PLUGIN LAB</small></span></a>
-<span class="status"><i class="pulse"></i> PUBLIC REPOSITORY</span>
-</header>
-<main>
-<section class="hero">
-<div class="hero-copy">
-<span class="eyebrow">Independent QGIS plugin ecosystem</span>
-<h1>Build smarter.<br><span class="gradient">Map beyond.</span></h1>
-<p>Discover automation-first QGIS tools built to streamline GIS and telecom workflows. Browse releases, inspect compatibility and install directly from the AMLAN-X repository.</p>
-<div class="hero-actions"><a class="btn btn-primary" href="#catalogue">Explore plugins <span aria-hidden="true">↘</span></a><a class="btn btn-secondary" href="https://github.com/amlanpatnaik001/amlanx-qgis-plugin-repository" target="_blank" rel="noopener noreferrer">View on GitHub ↗</a></div>
-</div>
-<div class="hero-orbit" aria-hidden="true"><div class="orbit-core">⌘</div></div>
-</section>
-<section aria-label="Repository statistics">
-<div class="stats">
-<div class="stat reveal"><strong id="count">—</strong><span>Available plugins</span></div>
-<div class="stat reveal"><strong id="release-count">—</strong><span>Published ZIP releases</span></div>
-<div class="stat reveal"><strong id="updated">Checking</strong><span>Catalogue status</span></div>
-</div>
-</section>
-<section id="catalogue">
-<div class="section-head reveal"><div><span class="eyebrow">The toolkit</span><h2>Plugin catalogue</h2><p>Find the right tool for your next GIS workflow.</p></div></div>
-<div class="toolbar reveal">
-<label class="field search"><span class="search-icon" aria-hidden="true">⌕</span><input id="search" type="search" placeholder="Search plugins, tools or features…" aria-label="Search plugins"></label>
-<label class="field"><select id="category" aria-label="Filter by category"><option value="">All categories</option></select></label>
-<label class="field"><select id="sort" aria-label="Sort plugins"><option value="name">Sort: Name</option><option value="newest">Sort: Latest version</option></select></label>
-</div>
-<div class="catalogue-meta"><span id="result-count" aria-live="polite">Loading catalogue…</span><span>Auto-synced from GitHub Actions</span></div>
-<div id="plugins" class="grid" aria-live="polite"><div class="empty"><strong>Loading AMLAN-X plugins</strong>Connecting to the live catalogue…</div></div>
-</section>
-<div class="notice"><span aria-hidden="true">⚠</span><div><b>Public distribution notice</b><br>Plugin packages published here are accessible to everyone. Upload only code and materials you own or are authorised to distribute. Never include credentials, client data or confidential company information.</div></div>
-<div class="repo-strip reveal"><div><strong>Connect AMLAN-X to QGIS Plugin Manager</strong><code id="feed-url">https://amlanpatnaik001.github.io/amlanx-qgis-plugin-repository/plugins.xml</code></div><button class="copy-btn" id="copy-feed" type="button">Copy repository URL</button></div>
-</main>
-<footer><div class="footer-row"><div><b>AMLAN-X QGIS Plugin Repository</b><br>Maintained by Amlan Patnaik · © 2077 Amlan Patnaik. All rights reserved.</div><div><a href="https://github.com/amlanpatnaik001/amlanx-qgis-plugin-repository" target="_blank" rel="noopener noreferrer">GitHub</a> · <a href="https://plugins.qgis.org/" target="_blank" rel="noopener noreferrer">Official QGIS Plugin Repository</a></div></div></footer>
-</div>
-<div class="toast" id="toast" role="status" aria-live="polite"></div>
-<script>
-(() => {
-"use strict";
-const $=s=>document.querySelector(s),state={all:[],releases:0};
-const escapeHTML=v=>String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
-const safeURL=(v,sameOrigin=false)=>{try{const u=new URL(String(v||""),location.href);if(!["https:","http:"].includes(u.protocol)||(sameOrigin&&u.origin!==location.origin))return"";return u.href}catch{return""}};
-const parts=v=>String(v||"0").split(/[.+-]/).map(x=>/^\\d+$/.test(x)?Number(x):x.toLowerCase());
-const compare=(a,b)=>{const x=parts(a),y=parts(b);for(let i=0;i<Math.max(x.length,y.length);i++){const p=x[i]??0,q=y[i]??0;if(p===q)continue;if(typeof p==="number"&&typeof q==="number")return p-q;return String(p).localeCompare(String(q),undefined,{numeric:true})}return 0};
-let toastTimer,observer;
-function toast(msg){const n=$("#toast");n.textContent=msg;n.classList.add("show");clearTimeout(toastTimer);toastTimer=setTimeout(()=>n.classList.remove("show"),2200)}
-function reveal(){if(!("IntersectionObserver"in window)){document.querySelectorAll(".reveal").forEach(x=>x.classList.add("visible"));return}if(!observer)observer=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("visible");observer.unobserve(e.target)}}),{threshold:.08});document.querySelectorAll(".reveal:not(.visible)").forEach(x=>observer.observe(x))}
-function render(){
-const q=$("#search").value.trim().toLowerCase(),cat=$("#category").value,sort=$("#sort").value;
-let items=state.all.filter(p=>(!cat||p.category===cat)&&[p.name,p.description,p.about,p.author,p.category,p.id].join(" ").toLowerCase().includes(q));
-items.sort(sort==="newest"?(a,b)=>compare(b.version,a.version):(a,b)=>String(a.name).localeCompare(String(b.name)));
-$("#count").textContent=state.all.length;$("#release-count").textContent=state.releases;
-$("#result-count").innerHTML="<strong>"+items.length+"</strong> plugin"+(items.length===1?"":"s")+" shown";
-if(!items.length){$("#plugins").innerHTML='<div class="empty"><strong>No matching plugins</strong>Try another keyword or select a different category.</div>';return}
-$("#plugins").innerHTML=items.map((p,i)=>{
-const home=safeURL(p.homepage),download=safeURL(p.download_url,true);
-return '<article class="card reveal" style="transition-delay:'+Math.min(i%6,5)*55+'ms"><div class="card-top"><span class="plugin-icon" aria-hidden="true">⌘</span><span class="category">'+escapeHTML(p.category||"Plugins")+'</span></div><h3>'+escapeHTML(p.name)+'</h3><div class="meta">VERSION '+escapeHTML(p.version)+' · '+(p.qgis_minimum_version?"QGIS "+escapeHTML(p.qgis_minimum_version)+"+":"QGIS compatibility varies")+'</div><p class="description">'+escapeHTML(p.description||p.about||"QGIS plugin from AMLAN-X.")+'</p><div class="tags"><span class="tag">By '+escapeHTML(p.author||"Amlan Patnaik")+'</span>'+(p.experimental?'<span class="tag experimental">Experimental</span>':"")+(p.deprecated?'<span class="tag experimental">Deprecated</span>':"")+'</div><div class="card-actions">'+(download?'<a class="download" href="'+escapeHTML(download)+'" download>↓ Download ZIP</a>':'<span class="meta">Download unavailable</span>')+(home?'<a class="details" href="'+escapeHTML(home)+'" target="_blank" rel="noopener noreferrer">Plugin details ↗</a>':"")+'</div></article>'
-}).join("");reveal()
-}
-async function load(){
-try{
-const [catalogResponse,statsResponse]=await Promise.all([fetch("./catalog.json",{cache:"no-store"}),fetch("./stats.json",{cache:"no-store"})]);
-if(!catalogResponse.ok)throw Error("Catalogue HTTP "+catalogResponse.status);
-const data=await catalogResponse.json();if(!Array.isArray(data))throw Error("Invalid catalogue format");
-state.all=data.filter(p=>p&&typeof p==="object"&&p.name&&p.version);
-if(statsResponse.ok){const stats=await statsResponse.json();state.releases=Number(stats.archive_count)||state.all.length;$("#updated").textContent=stats.generated_at?new Date(stats.generated_at).toLocaleDateString():"Live"}
-else{state.releases=state.all.length;$("#updated").textContent="Live"}
-const cats=[...new Set(state.all.map(p=>p.category).filter(Boolean))].sort((a,b)=>a.localeCompare(b));
-$("#category").innerHTML='<option value="">All categories</option>'+cats.map(c=>'<option value="'+escapeHTML(c)+'">'+escapeHTML(c)+'</option>').join("");
-render();reveal()
-}catch(err){$("#updated").textContent="Offline";$("#result-count").textContent="Catalogue unavailable";$("#plugins").innerHTML='<div class="empty"><strong>Catalogue could not be loaded</strong>Refresh in a moment. If the issue continues, check the latest GitHub Actions publishing run.</div>';console.error("AMLAN-X catalogue:",err)}
-}
-$("#search").addEventListener("input",render);$("#category").addEventListener("change",render);$("#sort").addEventListener("change",render);
-$("#copy-feed").addEventListener("click",async()=>{try{await navigator.clipboard.writeText($("#feed-url").textContent);toast("QGIS repository URL copied")}catch{toast("Copy unavailable — select the URL manually")}});
-reveal();load();
-})();
-</script>
-</body>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="theme-color" content="#080d19" />
+    <meta
+      name="description"
+      content="Discover, install and update AMLAN-X QGIS plugins. A public plugin repository maintained by Amlan Patnaik."
+    />
+    <title>AMLAN-X | QGIS Plugin Repository</title>
+    <style>
+      :root {
+        color-scheme: dark;
+        --bg: #080d19;
+        --panel: #101a2b;
+        --line: #263a56;
+        --muted: #91a4bf;
+        --text: #eef5ff;
+        --blue: #65b5ff;
+        --cyan: #55e4e0;
+        --green: #55e0ad;
+        --gold: #f5c66b;
+        --shadow: 0 22px 70px #0007;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      html {
+        scroll-behavior: smooth;
+        scroll-padding-top: 24px;
+      }
+      body {
+        margin: 0;
+        min-height: 100vh;
+        overflow-x: hidden;
+        background:
+          radial-gradient(ellipse at 75% -10%, #173e67 0, transparent 42%),
+          radial-gradient(ellipse at 0 45%, #102a43 0, transparent 30%),
+          var(--bg);
+        color: var(--text);
+        font:
+          15px/1.6 Inter,
+          ui-sans-serif,
+          system-ui,
+          -apple-system,
+          "Segoe UI",
+          sans-serif;
+      }
+      body:before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        z-index: -1;
+        pointer-events: none;
+        opacity: 0.18;
+        background-image:
+          linear-gradient(#6aaeff0b 1px, transparent 1px),
+          linear-gradient(90deg, #6aaeff0b 1px, transparent 1px);
+        background-size: 46px 46px;
+        mask-image: linear-gradient(to bottom, #000, transparent 85%);
+      }
+      a {
+        color: inherit;
+      }
+      button,
+      input,
+      select {
+        font: inherit;
+      }
+      button:focus-visible,
+      a:focus-visible,
+      input:focus-visible,
+      select:focus-visible {
+        outline: 2px solid var(--cyan);
+        outline-offset: 3px;
+      }
+      .wrap {
+        width: min(1160px, calc(100% - 40px));
+        margin: auto;
+      }
+      header {
+        height: 78px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 20px;
+        border-bottom: 1px solid #9fcaff18;
+      }
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-weight: 900;
+        letter-spacing: 0.13em;
+        font-size: 14px;
+        text-decoration: none;
+      }
+      .brand-mark {
+        width: 38px;
+        height: 38px;
+        display: grid;
+        place-items: center;
+        border: 1px solid #65b5ff66;
+        border-radius: 12px;
+        background: linear-gradient(145deg, #183b5f, #0b1728);
+        box-shadow: 0 0 26px #319bff25;
+        color: var(--cyan);
+        font-size: 17px;
+      }
+      .brand small {
+        display: block;
+        color: var(--blue);
+        font-size: 10px;
+        letter-spacing: 0.2em;
+        font-weight: 700;
+        margin-top: -3px;
+      }
+      .status {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        border: 1px solid #3b927a66;
+        border-radius: 999px;
+        padding: 6px 11px;
+        color: var(--green);
+        font-size: 11px;
+        letter-spacing: 0.12em;
+        font-weight: 800;
+        background: #153c332b;
+      }
+      .pulse {
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: var(--green);
+        box-shadow: 0 0 0 0 #55e0ad88;
+        animation: pulse 2s infinite;
+      }
+      @keyframes pulse {
+        70% {
+          box-shadow: 0 0 0 8px #55e0ad00;
+        }
+        100% {
+          box-shadow: 0 0 0 0 #55e0ad00;
+        }
+      }
+      .hero {
+        position: relative;
+        padding: 86px 0 48px;
+        min-height: 420px;
+        display: flex;
+        align-items: center;
+      }
+      .hero-copy {
+        max-width: 760px;
+        position: relative;
+        z-index: 1;
+      }
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 9px;
+        color: var(--cyan);
+        font-size: 11px;
+        font-weight: 800;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+      }
+      .eyebrow:before {
+        content: "";
+        width: 26px;
+        height: 1px;
+        background: var(--cyan);
+        box-shadow: 0 0 12px var(--cyan);
+      }
+      h1 {
+        font-size: clamp(44px, 7vw, 82px);
+        line-height: 0.99;
+        letter-spacing: -0.065em;
+        margin: 22px 0 20px;
+        font-weight: 850;
+      }
+      .gradient {
+        background: linear-gradient(
+          100deg,
+          #78c8ff 5%,
+          #60e3dc 52%,
+          #86a9ff 95%
+        );
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+      }
+      .hero p {
+        max-width: 620px;
+        color: #a9bad1;
+        font-size: 17px;
+        margin: 0;
+      }
+      .hero-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin-top: 28px;
+      }
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 9px;
+        padding: 11px 16px;
+        border-radius: 11px;
+        border: 1px solid transparent;
+        text-decoration: none;
+        font-weight: 800;
+        font-size: 13px;
+        transition:
+          transform 0.25s,
+          border-color 0.25s,
+          background 0.25s,
+          box-shadow 0.25s;
+        cursor: pointer;
+      }
+      .btn:hover {
+        transform: translateY(-3px);
+      }
+      .btn-primary {
+        color: #061421;
+        background: linear-gradient(110deg, #72c5ff, #65e3d7);
+        box-shadow: 0 8px 28px #4cb8df30;
+      }
+      .btn-secondary {
+        color: #c7dcf8;
+        background: #12243a;
+        border-color: #345071;
+      }
+      .hero-orbit {
+        position: absolute;
+        right: 3%;
+        top: 50%;
+        transform: translateY(-50%);
+        width: min(330px, 31vw);
+        aspect-ratio: 1;
+        border-radius: 50%;
+        border: 1px solid #6bbaff2c;
+        display: grid;
+        place-items: center;
+        animation: float 7s ease-in-out infinite;
+      }
+      .hero-orbit:before,
+      .hero-orbit:after {
+        content: "";
+        position: absolute;
+        border: 1px solid #6bbaff25;
+        border-radius: 50%;
+        inset: 12%;
+        animation: spin 24s linear infinite;
+      }
+      .hero-orbit:after {
+        inset: 25%;
+        border-style: dashed;
+        animation-direction: reverse;
+        animation-duration: 35s;
+      }
+      .orbit-core {
+        width: 42%;
+        aspect-ratio: 1;
+        border-radius: 30%;
+        display: grid;
+        place-items: center;
+        font-size: clamp(34px, 5vw, 58px);
+        color: var(--cyan);
+        background: linear-gradient(145deg, #173e60, #0b1829);
+        border: 1px solid #65b5ff66;
+        box-shadow:
+          0 0 65px #3aa9f855,
+          inset 0 0 30px #3aa9f81c;
+        transform: rotate(-8deg);
+      }
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+      @keyframes float {
+        50% {
+          translate: 0 -12px;
+        }
+      }
+      .section-head {
+        display: flex;
+        align-items: end;
+        justify-content: space-between;
+        gap: 18px;
+        margin: 24px 0 18px;
+      }
+      .section-head h2 {
+        font-size: 25px;
+        letter-spacing: -0.04em;
+        margin: 0;
+      }
+      .section-head p {
+        margin: 5px 0 0;
+        color: var(--muted);
+        font-size: 13px;
+      }
+      .stats {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 13px;
+        margin: 12px 0 30px;
+      }
+      .stat {
+        position: relative;
+        overflow: hidden;
+        padding: 17px 19px;
+        border: 1px solid var(--line);
+        border-radius: 15px;
+        background: linear-gradient(145deg, #14243a, #0e1929);
+        box-shadow: 0 12px 35px #0002;
+      }
+      .stat:after {
+        content: "";
+        position: absolute;
+        width: 90px;
+        height: 90px;
+        right: -35px;
+        top: -45px;
+        border-radius: 50%;
+        background: #5abaff12;
+        filter: blur(2px);
+      }
+      .stat strong {
+        display: block;
+        font-size: 28px;
+        line-height: 1.2;
+        letter-spacing: -0.04em;
+      }
+      .stat span {
+        color: var(--muted);
+        font-size: 12px;
+      }
+      .toolbar {
+        display: grid;
+        grid-template-columns: minmax(220px, 1fr) 190px 180px;
+        gap: 10px;
+        margin: 20px 0 16px;
+      }
+      .field {
+        position: relative;
+      }
+      .field input,
+      .field select {
+        width: 100%;
+        height: 48px;
+        background: #101d30;
+        border: 1px solid var(--line);
+        color: var(--text);
+        padding: 0 14px;
+        border-radius: 11px;
+      }
+      .field input {
+        padding-left: 42px;
+      }
+      .field input::placeholder {
+        color: #7186a3;
+      }
+      .field select {
+        cursor: pointer;
+      }
+      .search-icon {
+        position: absolute;
+        left: 15px;
+        top: 10px;
+        color: #83a5cb;
+        font-size: 21px;
+      }
+      .catalogue-meta {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 12px;
+        color: var(--muted);
+        font-size: 12px;
+        margin: 0 2px 14px;
+      }
+      .catalogue-meta strong {
+        color: #d9e9ff;
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+        gap: 15px;
+      }
+      .card {
+        position: relative;
+        isolation: isolate;
+        min-height: 250px;
+        display: flex;
+        flex-direction: column;
+        padding: 20px;
+        border-radius: 16px;
+        border: 1px solid #2b4261;
+        background: linear-gradient(145deg, #15263d 0%, #101b2d 72%);
+        box-shadow: 0 12px 35px #0002;
+        overflow: hidden;
+        transition:
+          transform 0.3s,
+          border-color 0.3s,
+          box-shadow 0.3s;
+      }
+      .card:before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        z-index: -1;
+        opacity: 0;
+        background: radial-gradient(
+          circle at 90% 0,
+          #4bb9f72b,
+          transparent 45%
+        );
+        transition: opacity 0.3s;
+      }
+      .card:hover {
+        transform: translateY(-6px);
+        border-color: #5b9ed1;
+        box-shadow:
+          0 20px 45px #0005,
+          0 0 28px #4ba8ed13;
+      }
+      .card:hover:before {
+        opacity: 1;
+      }
+      .card-top {
+        display: flex;
+        justify-content: space-between;
+        align-items: start;
+        gap: 10px;
+      }
+      .plugin-icon {
+        width: 43px;
+        height: 43px;
+        flex: 0 0 43px;
+        display: grid;
+        place-items: center;
+        border-radius: 12px;
+        color: var(--cyan);
+        background: #1b3c55;
+        border: 1px solid #3b7895;
+        font-size: 19px;
+      }
+      .category {
+        font-size: 10px;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: #9fc9ec;
+        border: 1px solid #456485;
+        border-radius: 999px;
+        padding: 4px 8px;
+        white-space: nowrap;
+      }
+      .card h3 {
+        font-size: 19px;
+        letter-spacing: -0.025em;
+        margin: 15px 0 5px;
+      }
+      .meta {
+        font-size: 11px;
+        color: #91a8c5;
+      }
+      .description {
+        color: #bdcbe0;
+        font-size: 13px;
+        line-height: 1.65;
+        margin: 13px 0 16px;
+        flex: 1;
+      }
+      .tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 7px;
+        margin-bottom: 17px;
+      }
+      .tag {
+        font-size: 10px;
+        color: #a9bfd9;
+        background: #1a2b41;
+        border: 1px solid #2d4562;
+        border-radius: 7px;
+        padding: 4px 7px;
+      }
+      .tag.experimental {
+        color: var(--gold);
+        border-color: #92713d66;
+        background: #4a351c45;
+      }
+      .card-actions {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        flex-wrap: wrap;
+        margin-top: auto;
+      }
+      .download {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 9px 12px;
+        border-radius: 9px;
+        text-decoration: none;
+        color: #061522;
+        background: linear-gradient(100deg, #75c6ff, #65e2d8);
+        font-size: 12px;
+        font-weight: 850;
+        transition:
+          filter 0.2s,
+          transform 0.2s;
+      }
+      .download:hover {
+        filter: brightness(1.1);
+        transform: translateY(-2px);
+      }
+      .details {
+        color: #9bc9f5;
+        text-decoration: none;
+        font-size: 12px;
+        background: transparent;
+        border: 0;
+        padding: 0;
+        cursor: pointer;
+        font-weight: 700;
+      }
+      .details:hover {
+        text-decoration: underline;
+      }
+      .plugin-dialog {
+        width: min(620px, calc(100% - 28px));
+        max-height: min(82vh, 760px);
+        padding: 0;
+        border: 1px solid #426587;
+        border-radius: 18px;
+        background: #101d30;
+        color: var(--text);
+        box-shadow: 0 28px 90px #000b;
+      }
+      .plugin-dialog::backdrop {
+        background: #020712c9;
+        backdrop-filter: blur(7px);
+      }
+      .dialog-head {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 15px;
+        padding: 21px 22px;
+        border-bottom: 1px solid #2a405c;
+        background: linear-gradient(120deg, #173451, #101d30);
+      }
+      .dialog-kicker {
+        font-size: 10px;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: var(--cyan);
+        font-weight: 800;
+      }
+      .dialog-head h2 {
+        font-size: 22px;
+        line-height: 1.2;
+        margin: 6px 0 0;
+      }
+      .dialog-close {
+        width: 34px;
+        height: 34px;
+        border-radius: 9px;
+        border: 1px solid #45617e;
+        background: #1a3048;
+        color: #dcecff;
+        font-size: 20px;
+        cursor: pointer;
+      }
+      .dialog-body {
+        padding: 20px 22px;
+        overflow: auto;
+        max-height: 55vh;
+      }
+      .dialog-description {
+        color: #c4d2e5;
+        white-space: pre-wrap;
+        font-size: 13px;
+        line-height: 1.75;
+      }
+      .dialog-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px;
+        margin: 18px 0;
+      }
+      .dialog-field {
+        padding: 11px 12px;
+        border: 1px solid #2d4562;
+        border-radius: 10px;
+        background: #14243a;
+      }
+      .dialog-field span {
+        display: block;
+        color: #91a8c5;
+        font-size: 10px;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+      }
+      .dialog-field strong {
+        display: block;
+        margin-top: 3px;
+        font-size: 13px;
+        overflow-wrap: anywhere;
+      }
+      .dialog-links {
+        display: flex;
+        gap: 13px;
+        flex-wrap: wrap;
+        margin-top: 17px;
+      }
+      .dialog-links a {
+        color: #9bc9f5;
+        font-size: 12px;
+        text-decoration: none;
+      }
+      .dialog-links a:hover {
+        text-decoration: underline;
+      }
+      .dialog-foot {
+        display: flex;
+        justify-content: flex-end;
+        gap: 10px;
+        padding: 15px 22px;
+        border-top: 1px solid #2a405c;
+      }
+      @media (max-width: 480px) {
+        .dialog-grid {
+          grid-template-columns: 1fr;
+        }
+        .dialog-head,
+        .dialog-body,
+        .dialog-foot {
+          padding-left: 16px;
+          padding-right: 16px;
+        }
+      }
+      .empty {
+        grid-column: 1/-1;
+        text-align: center;
+        padding: 54px 20px;
+        border: 1px dashed #36516e;
+        border-radius: 16px;
+        background: #101d2b80;
+        color: var(--muted);
+      }
+      .empty strong {
+        display: block;
+        color: var(--text);
+        font-size: 17px;
+        margin-bottom: 5px;
+      }
+      .notice {
+        display: flex;
+        gap: 12px;
+        align-items: flex-start;
+        margin: 28px 0 0;
+        padding: 15px 17px;
+        border: 1px solid #80672e66;
+        background: #382d193d;
+        border-radius: 12px;
+        color: #e9d49f;
+        font-size: 12px;
+      }
+      .notice b {
+        color: #ffe3a3;
+      }
+      .repo-strip {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        flex-wrap: wrap;
+        margin: 34px 0;
+        padding: 19px 21px;
+        border: 1px solid #315477;
+        border-radius: 15px;
+        background: linear-gradient(110deg, #132943, #101d2d);
+      }
+      .repo-strip strong {
+        display: block;
+        font-size: 14px;
+      }
+      .repo-strip code {
+        display: block;
+        color: #8fcaff;
+        font-size: 11px;
+        overflow-wrap: anywhere;
+        margin-top: 4px;
+      }
+      .copy-btn {
+        border: 1px solid #456b8c;
+        background: #1b3650;
+        color: #d7eaff;
+        border-radius: 9px;
+        padding: 9px 12px;
+        font-size: 11px;
+        font-weight: 800;
+        cursor: pointer;
+        white-space: nowrap;
+      }
+      .copy-btn:hover {
+        background: #244968;
+      }
+      footer {
+        border-top: 1px solid #9fcaff1c;
+        padding: 25px 0 35px;
+        color: var(--muted);
+        font-size: 12px;
+      }
+      .footer-row {
+        display: flex;
+        justify-content: space-between;
+        gap: 20px;
+        flex-wrap: wrap;
+      }
+      footer a {
+        color: #9bc9f5;
+        text-decoration: none;
+      }
+      footer a:hover {
+        text-decoration: underline;
+      }
+      .reveal {
+        opacity: 0;
+        transform: translateY(18px);
+        transition:
+          opacity 0.65s ease,
+          transform 0.65s ease;
+      }
+      .reveal.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      .toast {
+        position: fixed;
+        bottom: 22px;
+        left: 50%;
+        transform: translate(-50%, 20px);
+        opacity: 0;
+        pointer-events: none;
+        padding: 10px 15px;
+        border-radius: 10px;
+        background: #173b35;
+        border: 1px solid #4aa88d;
+        color: #b9ffe5;
+        font-size: 12px;
+        box-shadow: var(--shadow);
+        transition: 0.25s;
+        z-index: 10;
+      }
+      .toast.show {
+        opacity: 1;
+        transform: translate(-50%, 0);
+      }
+      @media (max-width: 760px) {
+        .hero {
+          padding: 66px 0 40px;
+          min-height: 0;
+        }
+        .hero-orbit {
+          opacity: 0.22;
+          right: -50px;
+          width: 260px;
+        }
+        .hero-copy {
+          max-width: 650px;
+        }
+        .toolbar {
+          grid-template-columns: 1fr 1fr;
+        }
+        .field.search {
+          grid-column: 1/-1;
+        }
+        .stats {
+          gap: 9px;
+        }
+        .stat {
+          padding: 13px;
+        }
+        .stat strong {
+          font-size: 23px;
+        }
+      }
+      @media (max-width: 480px) {
+        .wrap {
+          width: min(100% - 28px, 1160px);
+        }
+        header {
+          height: 68px;
+        }
+        .status {
+          font-size: 9px;
+          padding: 5px 8px;
+        }
+        .brand {
+          font-size: 12px;
+        }
+        .brand-mark {
+          width: 34px;
+          height: 34px;
+        }
+        .hero {
+          padding-top: 55px;
+        }
+        h1 {
+          font-size: 48px;
+        }
+        .hero p {
+          font-size: 15px;
+        }
+        .stats {
+          grid-template-columns: 1fr 1fr;
+        }
+        .stat:last-child {
+          grid-column: 1/-1;
+        }
+        .toolbar {
+          grid-template-columns: 1fr;
+        }
+        .field.search {
+          grid-column: auto;
+        }
+        .section-head {
+          align-items: start;
+          flex-direction: column;
+        }
+        .repo-strip {
+          align-items: flex-start;
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        *,
+        *:before,
+        *:after {
+          scroll-behavior: auto !important;
+          animation-duration: 0.01ms !important;
+          animation-iteration-count: 1 !important;
+          transition-duration: 0.01ms !important;
+        }
+        .reveal {
+          opacity: 1;
+          transform: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <header>
+        <a class="brand" href="./" aria-label="AMLAN-X home"
+          ><span class="brand-mark" aria-hidden="true">AX</span
+          ><span>AMLAN-X<small>GIS TOOLS / PLUGIN LAB</small></span></a
+        >
+        <span class="status"><i class="pulse"></i> PUBLIC REPOSITORY</span>
+      </header>
+      <main>
+        <section class="hero">
+          <div class="hero-copy">
+            <span class="eyebrow">Independent QGIS plugin ecosystem</span>
+            <h1>
+              Build smarter.<br /><span class="gradient">Map beyond.</span>
+            </h1>
+            <p>
+              Discover automation-first QGIS tools built to streamline GIS and
+              telecom workflows. Browse releases, inspect compatibility and
+              install directly from the AMLAN-X repository.
+            </p>
+            <div class="hero-actions">
+              <a class="btn btn-primary" href="#catalogue"
+                >Explore plugins <span aria-hidden="true">↘</span></a
+              ><a
+                class="btn btn-secondary"
+                href="https://github.com/amlanpatnaik001/amlanx-qgis-plugin-repository"
+                target="_blank"
+                rel="noopener noreferrer"
+                >View on GitHub ↗</a
+              >
+            </div>
+          </div>
+          <div class="hero-orbit" aria-hidden="true">
+            <div class="orbit-core">⌘</div>
+          </div>
+        </section>
+        <section aria-label="Repository statistics">
+          <div class="stats">
+            <div class="stat reveal">
+              <strong id="count">—</strong><span>Available plugins</span>
+            </div>
+            <div class="stat reveal">
+              <strong id="release-count">—</strong
+              ><span>Published ZIP releases</span>
+            </div>
+            <div class="stat reveal">
+              <strong id="updated">Checking</strong
+              ><span>Catalogue status</span>
+            </div>
+          </div>
+        </section>
+        <section id="catalogue">
+          <div class="section-head reveal">
+            <div>
+              <span class="eyebrow">The toolkit</span>
+              <h2>Plugin catalogue</h2>
+              <p>Find the right tool for your next GIS workflow.</p>
+            </div>
+          </div>
+          <div class="toolbar reveal">
+            <label class="field search"
+              ><span class="search-icon" aria-hidden="true">⌕</span
+              ><input
+                id="search"
+                type="search"
+                placeholder="Search plugins, tools or features…"
+                aria-label="Search plugins"
+            /></label>
+            <label class="field"
+              ><select id="category" aria-label="Filter by category">
+                <option value="">All categories</option>
+              </select></label
+            >
+            <label class="field"
+              ><select id="sort" aria-label="Sort plugins">
+                <option value="name">Sort: Name</option>
+                <option value="newest">Sort: Latest version</option>
+              </select></label
+            >
+          </div>
+          <div class="catalogue-meta">
+            <span id="result-count" aria-live="polite">Loading catalogue…</span
+            ><span>Auto-synced from GitHub Actions</span>
+          </div>
+          <div id="plugins" class="grid" aria-live="polite">
+            <div class="empty">
+              <strong>Loading AMLAN-X plugins</strong>Connecting to the live
+              catalogue…
+            </div>
+          </div>
+        </section>
+        <div class="notice">
+          <span aria-hidden="true">⚠</span>
+          <div>
+            <b>Public distribution notice</b><br />Plugin packages published
+            here are accessible to everyone. Upload only code and materials you
+            own or are authorised to distribute. Never include credentials,
+            client data or confidential company information.
+          </div>
+        </div>
+        <div class="repo-strip reveal">
+          <div>
+            <strong>Connect AMLAN-X to QGIS Plugin Manager</strong
+            ><code id="feed-url"
+              >https://amlanpatnaik001.github.io/amlanx-qgis-plugin-repository/plugins.xml</code
+            >
+          </div>
+          <button class="copy-btn" id="copy-feed" type="button">
+            Copy repository URL
+          </button>
+        </div>
+      </main>
+      <footer>
+        <div class="footer-row">
+          <div>
+            <b>AMLAN-X QGIS Plugin Repository</b><br />Maintained by Amlan
+            Patnaik · © 2077 Amlan Patnaik. All rights reserved.
+          </div>
+          <div>
+            <a
+              href="https://github.com/amlanpatnaik001/amlanx-qgis-plugin-repository"
+              target="_blank"
+              rel="noopener noreferrer"
+              >GitHub</a
+            >
+            ·
+            <a
+              href="https://plugins.qgis.org/"
+              target="_blank"
+              rel="noopener noreferrer"
+              >Official QGIS Plugin Repository</a
+            >
+          </div>
+        </div>
+      </footer>
+    </div>
+    <dialog
+      class="plugin-dialog"
+      id="plugin-dialog"
+      aria-labelledby="dialog-title"
+    >
+      <div class="dialog-head">
+        <div>
+          <div class="dialog-kicker">AMLAN-X plugin information</div>
+          <h2 id="dialog-title">Plugin details</h2>
+        </div>
+        <button
+          class="dialog-close"
+          id="dialog-close"
+          type="button"
+          aria-label="Close details"
+        >
+          ×
+        </button>
+      </div>
+      <div class="dialog-body" id="dialog-body"></div>
+      <div class="dialog-foot">
+        <button class="btn btn-secondary" id="dialog-dismiss" type="button">
+          Close
+        </button>
+      </div>
+    </dialog>
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    <script>
+      (() => {
+        "use strict";
+        const $ = (s) => document.querySelector(s),
+          state = { all: [], releases: 0 };
+        const escapeHTML = (v) =>
+          String(v ?? "").replace(
+            /[&<>"']/g,
+            (c) =>
+              ({
+                "&": "&amp;",
+                "<": "&lt;",
+                ">": "&gt;",
+                '"': "&quot;",
+                "'": "&#39;",
+              })[c],
+          );
+        const safeURL = (v, sameOrigin = false) => {
+          try {
+            const u = new URL(String(v || ""), location.href);
+            if (
+              !["https:", "http:"].includes(u.protocol) ||
+              (sameOrigin && u.origin !== location.origin)
+            )
+              return "";
+            return u.href;
+          } catch {
+            return "";
+          }
+        };
+        const parts = (v) =>
+          String(v || "0")
+            .split(/[.+-]/)
+            .map((x) => (/^\\d+$/.test(x) ? Number(x) : x.toLowerCase()));
+        const compare = (a, b) => {
+          const x = parts(a),
+            y = parts(b);
+          for (let i = 0; i < Math.max(x.length, y.length); i++) {
+            const p = x[i] ?? 0,
+              q = y[i] ?? 0;
+            if (p === q) continue;
+            if (typeof p === "number" && typeof q === "number") return p - q;
+            return String(p).localeCompare(String(q), undefined, {
+              numeric: true,
+            });
+          }
+          return 0;
+        };
+        let toastTimer, observer;
+        function toast(msg) {
+          const n = $("#toast");
+          n.textContent = msg;
+          n.classList.add("show");
+          clearTimeout(toastTimer);
+          toastTimer = setTimeout(() => n.classList.remove("show"), 2200);
+        }
+        function reveal() {
+          if (!("IntersectionObserver" in window)) {
+            document
+              .querySelectorAll(".reveal")
+              .forEach((x) => x.classList.add("visible"));
+            return;
+          }
+          if (!observer)
+            observer = new IntersectionObserver(
+              (es) =>
+                es.forEach((e) => {
+                  if (e.isIntersecting) {
+                    e.target.classList.add("visible");
+                    observer.unobserve(e.target);
+                  }
+                }),
+              { threshold: 0.08 },
+            );
+          document
+            .querySelectorAll(".reveal:not(.visible)")
+            .forEach((x) => observer.observe(x));
+        }
+        function render() {
+          const q = $("#search").value.trim().toLowerCase(),
+            cat = $("#category").value,
+            sort = $("#sort").value;
+          let items = state.all.filter(
+            (p) =>
+              (!cat || p.category === cat) &&
+              [p.name, p.description, p.about, p.author, p.category, p.id]
+                .join(" ")
+                .toLowerCase()
+                .includes(q),
+          );
+          items.sort(
+            sort === "newest"
+              ? (a, b) => compare(b.version, a.version)
+              : (a, b) => String(a.name).localeCompare(String(b.name)),
+          );
+          $("#count").textContent = state.all.length;
+          $("#release-count").textContent = state.releases;
+          $("#result-count").innerHTML =
+            "<strong>" +
+            items.length +
+            "</strong> plugin" +
+            (items.length === 1 ? "" : "s") +
+            " shown";
+          if (!items.length) {
+            $("#plugins").innerHTML =
+              '<div class="empty"><strong>No matching plugins</strong>Try another keyword or select a different category.</div>';
+            return;
+          }
+          $("#plugins").innerHTML = items
+            .map((p, i) => {
+              const home = safeURL(p.homepage),
+                download = safeURL(p.download_url, true);
+              return (
+                '<article class="card reveal" style="transition-delay:' +
+                Math.min(i % 6, 5) * 55 +
+                'ms"><div class="card-top"><span class="plugin-icon" aria-hidden="true">⌘</span><span class="category">' +
+                escapeHTML(p.category || "Plugins") +
+                "</span></div><h3>" +
+                escapeHTML(p.name) +
+                '</h3><div class="meta">VERSION ' +
+                escapeHTML(p.version) +
+                " · " +
+                (p.qgis_minimum_version
+                  ? "QGIS " + escapeHTML(p.qgis_minimum_version) + "+"
+                  : "QGIS compatibility varies") +
+                '</div><p class="description">' +
+                escapeHTML(
+                  p.description || p.about || "QGIS plugin from AMLAN-X.",
+                ) +
+                '</p><div class="tags"><span class="tag">By ' +
+                escapeHTML(p.author || "Amlan Patnaik") +
+                "</span>" +
+                (p.experimental
+                  ? '<span class="tag experimental">Experimental</span>'
+                  : "") +
+                (p.deprecated
+                  ? '<span class="tag experimental">Deprecated</span>'
+                  : "") +
+                '</div><div class="card-actions">' +
+                (download
+                  ? '<a class="download" href="' +
+                    escapeHTML(download) +
+                    '" download>↓ Download ZIP</a>'
+                  : '<span class="meta">Download unavailable</span>') +
+                '<button class="details" type="button" data-plugin-details="' +
+                escapeHTML(p.id) +
+                '">Plugin details ↗</button>' +
+                "</div></article>"
+              );
+            })
+            .join("");
+          reveal();
+        }
+        async function load() {
+          try {
+            const [catalogResponse, statsResponse] = await Promise.all([
+              fetch("./catalog.json", { cache: "no-store" }),
+              fetch("./stats.json", { cache: "no-store" }),
+            ]);
+            if (!catalogResponse.ok)
+              throw Error("Catalogue HTTP " + catalogResponse.status);
+            const data = await catalogResponse.json();
+            if (!Array.isArray(data)) throw Error("Invalid catalogue format");
+            state.all = data.filter(
+              (p) => p && typeof p === "object" && p.name && p.version,
+            );
+            if (statsResponse.ok) {
+              const stats = await statsResponse.json();
+              state.releases = Number(stats.archive_count) || state.all.length;
+              $("#updated").textContent = stats.generated_at
+                ? new Date(stats.generated_at).toLocaleDateString()
+                : "Live";
+            } else {
+              state.releases = state.all.length;
+              $("#updated").textContent = "Live";
+            }
+            const cats = [
+              ...new Set(state.all.map((p) => p.category).filter(Boolean)),
+            ].sort((a, b) => a.localeCompare(b));
+            $("#category").innerHTML =
+              '<option value="">All categories</option>' +
+              cats
+                .map(
+                  (c) =>
+                    '<option value="' +
+                    escapeHTML(c) +
+                    '">' +
+                    escapeHTML(c) +
+                    "</option>",
+                )
+                .join("");
+            render();
+            reveal();
+          } catch (err) {
+            $("#updated").textContent = "Offline";
+            $("#result-count").textContent = "Catalogue unavailable";
+            $("#plugins").innerHTML =
+              '<div class="empty"><strong>Catalogue could not be loaded</strong>Refresh in a moment. If the issue continues, check the latest GitHub Actions publishing run.</div>';
+            console.error("AMLAN-X catalogue:", err);
+          }
+        }
+
+        function openPluginDetails(pluginId) {
+          const plugin = state.all.find(
+            (item) => String(item.id) === String(pluginId),
+          );
+          if (!plugin) return;
+          const dialog = $("#plugin-dialog"),
+            body = $("#dialog-body");
+          const external = (label, value) => {
+            const url = safeURL(value);
+            return url
+              ? '<a href="' +
+                  escapeHTML(url) +
+                  '" target="_blank" rel="noopener noreferrer">' +
+                  label +
+                  " ↗</a>"
+              : "";
+          };
+          const fields = [
+            ["Version", plugin.version],
+            ["Category", plugin.category || "Plugins"],
+            ["Author", plugin.author || "Amlan Patnaik"],
+            ["Minimum QGIS", plugin.qgis_minimum_version || "Not specified"],
+            ["Maximum QGIS", plugin.qgis_maximum_version || "Not specified"],
+            [
+              "Release status",
+              plugin.deprecated
+                ? "Deprecated"
+                : plugin.experimental
+                  ? "Experimental"
+                  : "Stable",
+            ],
+          ];
+          $("#dialog-title").textContent = plugin.name || "Plugin details";
+          body.innerHTML =
+            '<p class="dialog-description">' +
+            escapeHTML(
+              plugin.about ||
+                plugin.description ||
+                "No additional description has been provided for this plugin.",
+            ) +
+            "</p>" +
+            '<div class="dialog-grid">' +
+            fields
+              .map(
+                ([label, value]) =>
+                  '<div class="dialog-field"><span>' +
+                  escapeHTML(label) +
+                  "</span><strong>" +
+                  escapeHTML(value) +
+                  "</strong></div>",
+              )
+              .join("") +
+            "</div>" +
+            '<div class="dialog-links">' +
+            external("Plugin homepage", plugin.homepage) +
+            external("Source repository", plugin.repository) +
+            external("Issue tracker", plugin.tracker) +
+            "</div>";
+          const download = safeURL(plugin.download_url, true);
+          const previous = $("#dialog-download");
+          if (previous) previous.remove();
+          if (download) {
+            const link = document.createElement("a");
+            link.id = "dialog-download";
+            link.className = "download";
+            link.href = download;
+            link.download = true;
+            link.textContent = "↓ Download ZIP";
+            $("#dialog-dismiss").parentElement.insertBefore(
+              link,
+              $("#dialog-dismiss"),
+            );
+          }
+          dialog.showModal();
+        }
+        document.addEventListener("click", (event) => {
+          const trigger = event.target.closest("[data-plugin-details]");
+          if (trigger)
+            openPluginDetails(trigger.getAttribute("data-plugin-details"));
+        });
+        function closePluginDialog() {
+          const dialog = $("#plugin-dialog");
+          if (dialog.open) dialog.close();
+        }
+        $("#dialog-close").addEventListener("click", closePluginDialog);
+        $("#dialog-dismiss").addEventListener("click", closePluginDialog);
+        $("#plugin-dialog").addEventListener("click", (event) => {
+          if (event.target === $("#plugin-dialog")) closePluginDialog();
+        });
+
+        $("#search").addEventListener("input", render);
+        $("#category").addEventListener("change", render);
+        $("#sort").addEventListener("change", render);
+        $("#copy-feed").addEventListener("click", async () => {
+          try {
+            await navigator.clipboard.writeText($("#feed-url").textContent);
+            toast("QGIS repository URL copied");
+          } catch {
+            toast("Copy unavailable — select the URL manually");
+          }
+        });
+        reveal();
+        load();
+      })();
+    </script>
+  </body>
 </html>
