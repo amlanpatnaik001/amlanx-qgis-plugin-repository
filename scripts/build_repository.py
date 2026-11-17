@@ -19,7 +19,7 @@ except ImportError as exc:
     raise SystemExit("Missing dependency: run python -m pip install packaging") from exc
 
 REQUIRED = ("name", "version", "description", "qgisminimumversion")
-VERSION_FILE = re.compile(r"^[A-Za-z0-9_]+\\.(\\d+(?:\\.\\d+){1,3}(?:[a-zA-Z0-9.+-]*)?)\\.zip$")
+VERSION_FILE = re.compile(r"^[A-Za-z0-9_]+\.(\d+(?:\.\d+){1,3}(?:[a-zA-Z0-9.+-]*)?)\.zip$")
 
 def clean(value: str | None) -> str:
     return (value or "").strip()
