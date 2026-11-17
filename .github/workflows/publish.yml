@@ -27,9 +27,9 @@ jobs:
           python-version: "3.12"
 
       - name: Install build dependency
-        run: python -m pip install packaging
+        run: python -m pip install --disable-pip-version-check packaging
 
-      - name: Build repository index
+      - name: Validate and build repository indexes
         run: |
           python scripts/build_repository.py \
             --root . \
@@ -39,7 +39,7 @@ jobs:
         run: |
           mkdir -p _site
           cp index.html _site/index.html
-          cp site/plugins.xml site/catalog.json _site/
+          cp site/plugins.xml site/catalog.json site/stats.json _site/
           cp -R plugins _site/plugins
 
       - name: Upload Pages artifact
